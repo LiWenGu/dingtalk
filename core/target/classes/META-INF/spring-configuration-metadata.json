@@ -2,16 +2,33 @@
   "hints": [],
   "groups": [
     {
-      "sourceType": "com.liwenguang.dingtalk.DingTalkServiceProperties",
+      "sourceType": "com.zed.dingtalk.DingTalkServiceProperties",
       "name": "dingtalk",
-      "type": "com.liwenguang.dingtalk.DingTalkServiceProperties"
+      "type": "com.zed.dingtalk.DingTalkServiceProperties"
+    },
+    {
+      "sourceType": "com.zed.dingtalk.service.accesstoken.AccessTokenProperties",
+      "name": "dingtalk",
+      "type": "com.zed.dingtalk.service.accesstoken.AccessTokenProperties"
     }
   ],
   "properties": [
     {
-      "sourceType": "com.liwenguang.dingtalk.DingTalkServiceProperties",
+      "sourceType": "com.zed.dingtalk.DingTalkServiceProperties",
       "name": "dingtalk.agent-id",
       "description": "应用ID",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.zed.dingtalk.service.accesstoken.AccessTokenProperties",
+      "name": "dingtalk.corp-id",
+      "description": "企业 ID",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.zed.dingtalk.service.accesstoken.AccessTokenProperties",
+      "name": "dingtalk.corp-secret",
+      "description": "企业秘钥",
       "type": "java.lang.String"
     }
   ]

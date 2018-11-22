@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.liwenguang.dingtalk.service.resttemplate.RestTemplateAutoConfig,\
-com.liwenguang.dingtalk.service.asyncsend.AsyncSendAutoConfigure
+com.zed.dingtalk.service.resttemplate.RestTemplateAutoConfig,\
+com.zed.dingtalk.service.asyncsend.AsyncSendAutoConfigure
