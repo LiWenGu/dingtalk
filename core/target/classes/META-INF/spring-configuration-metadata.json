@@ -1,0 +1,18 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.liwenguang.dingtalk.DingTalkServiceProperties",
+      "name": "dingtalk",
+      "type": "com.liwenguang.dingtalk.DingTalkServiceProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.liwenguang.dingtalk.DingTalkServiceProperties",
+      "name": "dingtalk.agent-id",
+      "description": "应用ID",
+      "type": "java.lang.String"
+    }
+  ]
+}
