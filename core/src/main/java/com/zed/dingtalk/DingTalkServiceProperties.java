@@ -16,12 +16,12 @@ public class DingTalkServiceProperties {
      * 应用ID
      */
     private String agentId;
-
-    public String getAgentId() {
-        return agentId;
-    }
-
-    public void setAgentId(String agentId) {
-        this.agentId = agentId;
-    }
+    /**
+     * 企业 ID
+     */
+    private String corpId;
+    /**
+     * 企业秘钥
+     */
+    private String corpSecret;
 }

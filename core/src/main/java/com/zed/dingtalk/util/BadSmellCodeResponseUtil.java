@@ -4,13 +4,16 @@ package com.zed.dingtalk.util;
 import com.alibaba.fastjson.JSON;
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
+import com.zed.dingtalk.service.common.BaseResponse;
+import com.zed.dingtalk.service.callback.CallBackResponse;
+import com.zed.dingtalk.service.callback.DingTalkSelectResponse;
 
 /**
  * @Author liwenguang
  * @Date 2018/11/22 12:04 PM
  * @Description
  */
-public class BadSmellCodeUtil {
+public class BadSmellCodeResponseUtil {
 
     private static AsyncSendResponse to(AsyncSendResponse asyncSendResponse, com.zed.dingtalk.service.asyncsend.DingTalkResponse badSmellCodeResponse) {
         asyncSendResponse.setSuc(badSmellCodeResponse.getResponse().getResult().isSuccess());
@@ -64,5 +67,49 @@ public class BadSmellCodeUtil {
             accessTokenResponse.setFailDetail(failDetail);
         }
         return accessTokenResponse;
+    }
+
+    /**
+     * callback
+     * @param baseResponse
+     * @param response
+     * @return
+     */
+    public static BaseResponse to(BaseResponse baseResponse, com.zed.dingtalk.service.callback.DingTalkResponse response) {
+        if (response.getErrCode().equals(0) && response.getErrMsg().equals("ok")) {
+            baseResponse.setSuc(true);
+        } else {
+            baseResponse.setSuc(false);
+            BaseResponse.FailDetail failDetail = new BaseResponse().new FailDetail();
+            failDetail.setErrCode(response.getErrCode());
+            failDetail.setErrMsg(response.getErrMsg());
+            baseResponse.setFailDetail(failDetail);
+        }
+        return baseResponse;
+    }
+
+    /**
+     * 回调查看
+     * @param callBackSelectResponse
+     * @param response
+     * @return
+     */
+    public static BaseResponse to(CallBackResponse callBackSelectResponse, DingTalkSelectResponse response) {
+        if (response.getErrCode().equals(0) && response.getErrMsg().equals("ok")) {
+            callBackSelectResponse.setSuc(true);
+            CallBackResponse.SucDetail sucDetail = new CallBackResponse().new SucDetail();
+            sucDetail.setUrl(response.getUrl());
+            sucDetail.setAesKey(response.getAesKey());
+            sucDetail.setToken(response.getToken());
+            sucDetail.setCallBackTag(response.getCallBackTag());
+            callBackSelectResponse.setSucDetail(sucDetail);
+        } else {
+            callBackSelectResponse.setSuc(false);
+            BaseResponse.FailDetail failDetail = new BaseResponse().new FailDetail();
+            failDetail.setErrCode(response.getErrCode());
+            failDetail.setErrMsg(response.getErrMsg());
+            callBackSelectResponse.setFailDetail(failDetail);
+        }
+        return callBackSelectResponse;
     }
 }

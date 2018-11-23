@@ -8,20 +8,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(AccessTokenProperties.class)
+@EnableConfigurationProperties(DingTalkServiceProperties.class)
 public class AccessTokenAutoConfigure {
 
-    private final AccessTokenProperties properties;
+    private final DingTalkServiceProperties properties;
 
     @Autowired
-    public AccessTokenAutoConfigure(AccessTokenProperties properties) {
+    public AccessTokenAutoConfigure(DingTalkServiceProperties properties) {
         this.properties = properties;
     }
 
     @Bean
     @ConditionalOnMissingBean
     AccessTokenService accessTokenService (){
-        return new AccessTokenService(properties);
+        return new AccessTokenService(properties.getCorpId(), properties.getCorpSecret());
     }
 }
 

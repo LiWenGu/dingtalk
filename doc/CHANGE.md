@@ -8,3 +8,4 @@
 >是给接口用的 starter，保留也没有问题。
 3. 使用 fastjson 解析，将 jackson2MessageConvert 从 restemplate 去掉
 >https://stackoverflow.com/questions/30041206/can-java-8-streams-operate-on-an-item-in-a-collection-and-then-remove-it
+4. 通用的响应类，子类继承不同的 FailDetail 类

@@ -1,7 +1,7 @@
 package com.zed.dingtalk.service.asyncsend;
 
 import com.zed.dingtalk.type.DingTalkEcoEnum;
-import com.zed.dingtalk.util.BadSmellCodeUtil;
+import com.zed.dingtalk.util.BadSmellCodeResponseUtil;
 import com.zed.dingtalk.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -44,6 +44,6 @@ public class CorpMessageService {
         params.putAll(BeanUtils.BeanToMultiValueMap(request));
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity(params, headers);
         String response = restTemplate.postForObject(DingTalkEcoEnum.ASYNC_SEND.getUrl(), httpEntity, String.class);
-        return BadSmellCodeUtil.to(resultResponse, response);
+        return BadSmellCodeResponseUtil.to(resultResponse, response);
     }
 }
