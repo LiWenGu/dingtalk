@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * @Author liwenguang
  * @Date 2018/11/22 12:09 PM
- * @Description DT 真正返回的 Bean 类
+ * @Description DT 真正返回的 Bean 类，回调地址失败的 Bean： {@link com.zed.dingtalk.common.BaseDingTalkFailResponse}
  */
 @Data
-public class DingTalkSelectResponse {
+public class CallBackDTSucResponse {
 
     private String aesKey;
     private String token;

@@ -2,7 +2,8 @@ package com.zed.dingtalk.service;
 
 import com.zed.dingtalk.DingTalkAppTest;
 import com.zed.dingtalk.service.callback.CallBackRegisterRequest;
-import com.zed.dingtalk.service.common.BaseResponse;
+import com.zed.dingtalk.common.BaseResponse;
+import com.zed.dingtalk.service.callback.CallBackResponse;
 import com.zed.dingtalk.service.callback.CallBackService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -22,6 +23,8 @@ public class CallBackServiceTest extends DingTalkAppTest {
     @Autowired
     private CallBackService callBackService;
 
+    private String accessToken = "cee85031be3739318b50a1f060425e60";
+
     @Test
     public void register() {
         CallBackRegisterRequest callBackRegisterRequest = new CallBackRegisterRequest();
@@ -32,32 +35,20 @@ public class CallBackServiceTest extends DingTalkAppTest {
         callBackRegisterRequest.setAesKey("cIWtQgvtTEWhdvyOHPXrMtGM88yzzAyF7FYVXqxHwPZ");
         callBackRegisterRequest.setUrl("https://torder.baletu.com/dd/bpmsChangeData");
         callBackRegisterRequest.setToken("123456");
-        BaseResponse response = callBackService.register("6c877443dc733b09ad5e598c93bf5c27", callBackRegisterRequest);
-        if (response.isSuc()) {
-            System.out.println();
-        } else {
-            System.out.println(response.getFailDetail().getErrCode() + response.getFailDetail().getErrMsg());
-        }
+        CallBackResponse callBackResponse = callBackService.register(accessToken, callBackRegisterRequest);
+        System.out.println(callBackResponse.toString());
     }
 
     @Test
     public void delete() {
-        BaseResponse response = callBackService.delete("6c877443dc733b09ad5e598c93bf5c27");
-        if (response.isSuc()) {
-            System.out.println();
-        } else {
-            System.out.println(response.getFailDetail().getErrCode() + response.getFailDetail().getErrMsg());
-        }
+        CallBackResponse callBackResponse = callBackService.delete(accessToken);
+        System.out.println(callBackResponse.toString());
     }
 
     @Test
     public void select() {
-        BaseResponse response = callBackService.select("6c877443dc733b09ad5e598c93bf5c27");
-        if (response.isSuc()) {
-            System.out.println();
-        } else {
-            System.out.println(response.getFailDetail().getErrCode() + response.getFailDetail().getErrMsg());
-        }
+        CallBackResponse callBackResponse = callBackService.select(accessToken);
+        System.out.println(callBackResponse.toString());
     }
 
     @Test
@@ -70,11 +61,7 @@ public class CallBackServiceTest extends DingTalkAppTest {
         callBackRegisterRequest.setAesKey("cIWtQgvtTEWhdvyOHPXrMtGM88yzzAyF7FYVXqxHwPZ");
         callBackRegisterRequest.setUrl("https://torder.baletu.com/dd/bpmsChangeData");
         callBackRegisterRequest.setToken("123456");
-        BaseResponse response = callBackService.update("6c877443dc733b09ad5e598c93bf5c27", callBackRegisterRequest);
-        if (response.isSuc()) {
-            System.out.println();
-        } else {
-            System.out.println(response.getFailDetail().getErrCode() + response.getFailDetail().getErrMsg());
-        }
+        CallBackResponse callBackResponse = callBackService.update(accessToken, callBackRegisterRequest);
+        System.out.println(callBackResponse.toString());
     }
 }

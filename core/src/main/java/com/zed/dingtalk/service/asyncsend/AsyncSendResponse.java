@@ -1,6 +1,8 @@
 package com.zed.dingtalk.service.asyncsend;
 
+import com.zed.dingtalk.common.BaseResponse;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @Author liwenguang
@@ -8,21 +10,13 @@ import lombok.Data;
  * @Description
  */
 @Data
-public class AsyncSendResponse {
+@ToString(callSuper = true)
+public class AsyncSendResponse extends BaseResponse<AsyncSendResponse.SucDetail> {
 
-    private boolean suc;
     private String requestId;
-    private SucDetail sucDetail;
-    private ErrDetail errDetail;
 
     @Data
     public class SucDetail {
         private String taskId;
-    }
-
-    @Data
-    public class ErrDetail {
-        private String errCode;
-        private String errMsg;
     }
 }

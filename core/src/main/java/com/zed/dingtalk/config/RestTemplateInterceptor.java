@@ -1,4 +1,4 @@
-package com.zed.dingtalk.service.resttemplate;
+package com.zed.dingtalk.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

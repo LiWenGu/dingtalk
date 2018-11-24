@@ -6,10 +6,10 @@ import lombok.Data;
 /**
  * @Author liwenguang
  * @Date 2018/11/22 12:09 PM
- * @Description DT 真正返回的 Bean 类
+ * @Description DT 真正返回的 Bean 类，比较特殊，有失败的情况
  */
 @Data
-public class DingTalkResponse {
+public class AsyncSendDTSucResponse {
 
     @JSONField(name = "dingtalk_corp_message_corpconversation_asyncsend_response")
     private Response response;

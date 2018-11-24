@@ -1,8 +1,8 @@
 package com.zed.dingtalk.service.accesstoken;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.zed.dingtalk.type.DingTalkEcoEnum;
 import com.zed.dingtalk.util.BadSmellCodeResponseUtil;
+import com.zed.dingtalk.util.ResponseTransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,6 +15,7 @@ public class AccessTokenService {
 
     @Autowired
     private RestTemplate restTemplate;
+
     private String corpId;
     private String corpSecret;
 
@@ -29,22 +30,9 @@ public class AccessTokenService {
      */
     public AccessTokenResponse getAccessToken() {
         AccessTokenResponse accessTokenResponse = new AccessTokenResponse();
-        DingTalkResponse dingTalkResponse = restTemplate.getForObject(
+        AccessTokenDTResponse accessTokenDTResponse = restTemplate.getForObject(
                 DingTalkEcoEnum.ACCESS_TOKEN.getUrl() + "?corpid={corpId}&corpsecret={corpSecret}",
-                DingTalkResponse.class, corpId, corpSecret);
-        return BadSmellCodeResponseUtil.to(accessTokenResponse, dingTalkResponse);
-    }
-
-    /**
-     * access_token
-     * @param request
-     * @return
-     */
-    public AccessTokenResponse getAccessToken(AccessTokenRequest request) {
-        AccessTokenResponse accessTokenResponse = new AccessTokenResponse();
-        DingTalkResponse dingTalkResponse = restTemplate.getForObject(
-                DingTalkEcoEnum.ACCESS_TOKEN.getUrl() + "?corpid={corpId}&corpsecret={corpSecret}",
-                DingTalkResponse.class, request);
-        return BadSmellCodeResponseUtil.to(accessTokenResponse, dingTalkResponse);
+                AccessTokenDTResponse.class, corpId, corpSecret);
+        return ResponseTransferUtil.to(accessTokenResponse, accessTokenDTResponse);
     }
 }

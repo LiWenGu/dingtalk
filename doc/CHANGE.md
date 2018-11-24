@@ -9,3 +9,6 @@
 3. 使用 fastjson 解析，将 jackson2MessageConvert 从 restemplate 去掉
 >https://stackoverflow.com/questions/30041206/can-java-8-streams-operate-on-an-item-in-a-collection-and-then-remove-it
 4. 通用的响应类，子类继承不同的 FailDetail 类
+5. 接收响应的时候 FastJson 需要将 Bean 的内部类设置为 static，但是使用 JSON.parse() 的时候不需要将转化为的 Bean 内部类设置为 static.
+6. 默认 FastJson 不区分大小写，因此 errmsg -> errMsg
+7. 继承自基础 DingTalkFail 类

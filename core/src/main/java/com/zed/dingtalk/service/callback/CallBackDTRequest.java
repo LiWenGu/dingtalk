@@ -11,7 +11,7 @@ import java.util.List;
  * @Description
  */
 @Data
-public class DingTalkRegisterRequest {
+public class CallBackDTRequest {
 
     private List<String> call_back_tag;
     private String token;

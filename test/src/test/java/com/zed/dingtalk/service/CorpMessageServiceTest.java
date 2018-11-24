@@ -31,7 +31,7 @@ public class CorpMessageServiceTest extends DingTalkAppTest {
         if (asyncSendResponse.isSuc()) {
             asyncSendResponse.getSucDetail();
         } else {
-            asyncSendResponse.getErrDetail();
+            asyncSendResponse.getFailDetail();
         }
     }
 }

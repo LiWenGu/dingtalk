@@ -2,7 +2,7 @@ package com.zed.dingtalk.util;
 
 
 import com.zed.dingtalk.service.callback.CallBackRegisterRequest;
-import com.zed.dingtalk.service.callback.DingTalkRegisterRequest;
+import com.zed.dingtalk.service.callback.CallBackDTRequest;
 
 /**
  * @Author liwenguang
@@ -12,12 +12,12 @@ import com.zed.dingtalk.service.callback.DingTalkRegisterRequest;
 public class BadSmellCodeRequestUtil {
 
 
-    public static DingTalkRegisterRequest to(CallBackRegisterRequest registerRequest) {
-        DingTalkRegisterRequest dingTalkRegisterRequest = new DingTalkRegisterRequest();
-        dingTalkRegisterRequest.setUrl(registerRequest.getUrl());
-        dingTalkRegisterRequest.setAes_key(registerRequest.getAesKey());
-        dingTalkRegisterRequest.setToken(registerRequest.getToken());
-        dingTalkRegisterRequest.setCall_back_tag(registerRequest.getCallBackTag());
-        return dingTalkRegisterRequest;
+    public static CallBackDTRequest to(CallBackRegisterRequest registerRequest) {
+        CallBackDTRequest callBackDTRequest = new CallBackDTRequest();
+        callBackDTRequest.setUrl(registerRequest.getUrl());
+        callBackDTRequest.setAes_key(registerRequest.getAesKey());
+        callBackDTRequest.setToken(registerRequest.getToken());
+        callBackDTRequest.setCall_back_tag(registerRequest.getCallBackTag());
+        return callBackDTRequest;
     }
 }

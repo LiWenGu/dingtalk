@@ -1,7 +1,8 @@
 package com.zed.dingtalk.service.bpms;
 
-import com.zed.dingtalk.service.common.BaseResponse;
+import com.zed.dingtalk.common.BaseResponse;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
  * @Date 2018/11/24 3:00 PM
  * @Description
  */
+@ToString(callSuper = true)
 public class BpmsResponse extends BaseResponse<BpmsResponse.SucDetail> {
 
     @Data

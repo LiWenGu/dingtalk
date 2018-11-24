@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description DT 真正返回的 Bean 类
  */
 @Data
-public class DingTalkResponse2 {
+public class AsyncSendDTFailResponse {
     private ErrorResponse errorResponse;
 
     @Data

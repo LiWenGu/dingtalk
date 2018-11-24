@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Objects;
+
 /**
  * @Author liwenguang
  * @Date 2018/11/22 10:54 PM
@@ -19,14 +21,14 @@ public class AccessTokenServiceTest extends DingTalkAppTest {
     private AccessTokenService accessTokenService;
 
     @Test
-    public void asyncSend() {
+    public void getAccessToken() {
         AccessTokenResponse accessTokenResponse = accessTokenService.getAccessToken();
         if (accessTokenResponse.isSuc()) {
             log.debug(accessTokenResponse.getSucDetail().getAccessToken());
-            assert accessTokenResponse.getSucDetail().getExpires().equals(7200);
+            assert Objects.equals(accessTokenResponse.getSucDetail().getExpires(), 7200);
         } else {
-            assert accessTokenResponse.getFailDetail().getErrCode().equals(40089);
-            assert accessTokenResponse.getFailDetail().getErrMsg().equals("不合法的corpid或corpsecret");
+            assert Objects.equals(accessTokenResponse.getFailDetail().getErrCode(), "40089");
+            assert Objects.equals(accessTokenResponse.getFailDetail().getErrMsg(), "不合法的corpid或corpsecret");
         }
     }
 }

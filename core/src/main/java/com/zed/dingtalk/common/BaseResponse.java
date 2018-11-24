@@ -1,7 +1,10 @@
-package com.zed.dingtalk.service.common;
+package com.zed.dingtalk.common;
 
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @Author liwenguang
@@ -11,11 +14,13 @@ import lombok.Data;
 @Data
 public class BaseResponse<T> {
 
-    private boolean suc;
-    private T sucDetail;
-    private FailDetail failDetail;
+    protected boolean suc;
+    protected T sucDetail;
+    protected FailDetail failDetail;
 
-    @Data
+    @Getter
+    @Setter
+    @ToString
     public class FailDetail {
         private String errCode;
         private String errMsg;

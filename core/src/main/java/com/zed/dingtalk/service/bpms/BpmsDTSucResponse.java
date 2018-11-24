@@ -11,7 +11,7 @@ import java.util.List;
  * @Description
  */
 @Data
-public class DingTalkSucResponse {
+public class BpmsDTSucResponse {
 
     @JSONField(name = "dingtalk_smartwork_bpms_processinstance_get_response")
     private Response response;

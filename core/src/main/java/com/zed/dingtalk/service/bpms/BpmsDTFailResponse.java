@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description
  */
 @Data
-public class DingTalkFailResponse {
+public class BpmsDTFailResponse {
 
     @JSONField(name = "error_response")
     private Response response;

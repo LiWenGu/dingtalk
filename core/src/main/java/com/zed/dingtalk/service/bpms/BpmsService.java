@@ -5,6 +5,7 @@ import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
 import com.zed.dingtalk.type.DingTalkEcoEnum;
 import com.zed.dingtalk.util.BadSmellCodeResponseUtil;
 import com.zed.dingtalk.util.BeanUtils;
+import com.zed.dingtalk.util.ResponseTransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +28,7 @@ public class BpmsService {
 
     /**
      * 获取单个审批实例详细信息
+     * 这里使用 post 或 get 请求钉钉接口都行！
      * @param request
      * @return
      */
@@ -40,6 +42,6 @@ public class BpmsService {
         params.putAll(BeanUtils.BeanToMultiValueMap(request));
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity(params, headers);
         String response = restTemplate.postForObject(DingTalkEcoEnum.BPMS_GET.getUrl(), httpEntity, String.class);
-        return BadSmellCodeResponseUtil.to(new BpmsResponse(), response);
+        return ResponseTransferUtil.to(new BpmsResponse(), response);
     }
 }

@@ -1,9 +1,11 @@
 package com.zed.dingtalk.service.callback;
 
-import com.zed.dingtalk.service.common.BaseResponse;
+import com.zed.dingtalk.common.BaseDingTalkFailResponse;
+import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.type.DingTalkEcoEnum;
 import com.zed.dingtalk.util.BadSmellCodeRequestUtil;
 import com.zed.dingtalk.util.BadSmellCodeResponseUtil;
+import com.zed.dingtalk.util.ResponseTransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,10 +29,10 @@ public class CallBackService {
      * @Date 2018/11/23 5:18 PM
      * @Description 注册回调地址
      */
-    public BaseResponse register(String accessToken, CallBackRegisterRequest registerRequest) {
-        DingTalkResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_REGISTER.getUrl() +
-                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), DingTalkResponse.class, accessToken);
-        return BadSmellCodeResponseUtil.to(new BaseResponse(), response);
+    public CallBackResponse register(String accessToken, CallBackRegisterRequest registerRequest) {
+        BaseDingTalkFailResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_REGISTER.getUrl() +
+                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), BaseDingTalkFailResponse.class, accessToken);
+        return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 
     /**
@@ -38,10 +40,10 @@ public class CallBackService {
      * @Date 2018/11/23 5:18 PM
      * @Description 删除回调地址
      */
-    public BaseResponse delete(String accessToken) {
-        DingTalkResponse response = restTemplate.getForObject(DingTalkEcoEnum.CALL_BACK_DELETE.getUrl() +
-                "?access_token={accessToken}", DingTalkResponse.class, accessToken);
-        return BadSmellCodeResponseUtil.to(new BaseResponse(), response);
+    public CallBackResponse delete(String accessToken) {
+        BaseDingTalkFailResponse response = restTemplate.getForObject(DingTalkEcoEnum.CALL_BACK_DELETE.getUrl() +
+                "?access_token={accessToken}", BaseDingTalkFailResponse.class, accessToken);
+        return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 
     /**
@@ -49,10 +51,10 @@ public class CallBackService {
      * @Date 2018/11/23 5:18 PM
      * @Description 更新回调地址
      */
-    public BaseResponse update(String accessToken, CallBackRegisterRequest registerRequest) {
-        DingTalkResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_UPDATE.getUrl() +
-                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), DingTalkResponse.class, accessToken);
-        return BadSmellCodeResponseUtil.to(new BaseResponse(), response);
+    public CallBackResponse update(String accessToken, CallBackRegisterRequest registerRequest) {
+        BaseDingTalkFailResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_UPDATE.getUrl() +
+                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), BaseDingTalkFailResponse.class, accessToken);
+        return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 
     /**
@@ -60,9 +62,9 @@ public class CallBackService {
      * @Date 2018/11/23 5:18 PM
      * @Description 查看回调地址
      */
-    public BaseResponse select(String accessToken) {
-        DingTalkSelectResponse response = restTemplate.getForObject(DingTalkEcoEnum.CALL_BACK_SELECT.getUrl() +
-                "?access_token={accessToken}", DingTalkSelectResponse.class, accessToken);
-        return BadSmellCodeResponseUtil.to(new CallBackResponse(), response);
+    public CallBackResponse select(String accessToken) {
+        CallBackDTSucResponse response = restTemplate.getForObject(DingTalkEcoEnum.CALL_BACK_SELECT.getUrl() +
+                "?access_token={accessToken}", CallBackDTSucResponse.class, accessToken);
+        return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 }
