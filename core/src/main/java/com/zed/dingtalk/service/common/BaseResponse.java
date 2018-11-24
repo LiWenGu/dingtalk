@@ -17,7 +17,7 @@ public class BaseResponse<T> {
 
     @Data
     public class FailDetail {
-        private Integer errCode;
+        private String errCode;
         private String errMsg;
     }
 }
