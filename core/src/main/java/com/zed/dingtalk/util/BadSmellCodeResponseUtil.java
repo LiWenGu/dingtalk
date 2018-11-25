@@ -1,18 +1,21 @@
 package com.zed.dingtalk.util;
 
 
-import com.zed.dingtalk.common.BaseDingTalkFailResponse;
+import cn.hutool.core.bean.BeanUtil;
+import com.zed.dingtalk.common.BaseDTFailResponse;
+import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTFailResponse;
+import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
-import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTFailResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
-import com.zed.dingtalk.service.callback.CallBackResponse;
+import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
-import com.zed.dingtalk.common.BaseResponse;
+import com.zed.dingtalk.service.callback.CallBackResponse;
+import com.zed.dingtalk.service.department.DeptUserDetailDTSucResponse;
+import com.zed.dingtalk.service.department.DeptUserDetailResponse;
 import com.zed.dingtalk.service.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.user.UserDetailResponse;
 
@@ -27,13 +30,21 @@ public class BadSmellCodeResponseUtil {
 
     // ----------------------------------------------------------------------------------------------------------------------人员详情
     protected static UserDetailResponse to(UserDetailResponse userDetailResponse, UserDetailDTSucResponse userDetailDTSucResponse) {
-        return null;
+        userDetailResponse.setSuc(true);
+        UserDetailResponse.SucDetail sucDetail = new UserDetailResponse().new SucDetail();
+        sucDetail.setMobile(userDetailDTSucResponse.getMobile());
+        sucDetail.setName(userDetailDTSucResponse.getName());
+        sucDetail.setUserId(userDetailDTSucResponse.getUserId());
+        // 部门
+        sucDetail.setDeptIds(userDetailDTSucResponse.getDepartment());
+        userDetailResponse.setSucDetail(sucDetail);
+        return userDetailResponse;
     }
 
-    protected static UserDetailResponse to(UserDetailResponse userDetailResponse, BaseDingTalkFailResponse baseDingTalkFailResponse) {
+    protected static UserDetailResponse to(UserDetailResponse userDetailResponse, BaseDTFailResponse baseDTFailResponse) {
         BaseResponse.FailDetail failDetail = new BaseResponse().new FailDetail();
-        failDetail.setErrCode(baseDingTalkFailResponse.getErrCode());
-        failDetail.setErrMsg(baseDingTalkFailResponse.getErrMsg());
+        failDetail.setErrCode(baseDTFailResponse.getErrCode());
+        failDetail.setErrMsg(baseDTFailResponse.getErrMsg());
         userDetailResponse.setFailDetail(failDetail);
         return userDetailResponse;
     }
@@ -93,7 +104,7 @@ public class BadSmellCodeResponseUtil {
      * @Date 2018/11/25 2:04 AM
      * @Description 回调地址增删改
      */
-    protected static CallBackResponse to(CallBackResponse callBackResponse, BaseDingTalkFailResponse response) {
+    protected static CallBackResponse to(CallBackResponse callBackResponse, BaseDTFailResponse response) {
         if (response.getErrCode().equals("0") && response.getErrMsg().equals("ok")) {
             callBackResponse.setSuc(true);
         } else {
@@ -193,4 +204,29 @@ public class BadSmellCodeResponseUtil {
         return bpmsResponse;
     }
     //-----------------------------------------------------------------------------------------------------------------------审批详情
+
+    //-----------------------------------------------------------------------------------------------------------------------部门人员详情
+    public static DeptUserDetailResponse to(DeptUserDetailResponse deptUserDetailResponse, DeptUserDetailDTSucResponse deptUserDetailDTSucResponse) {
+        deptUserDetailResponse.setSuc(true);
+        DeptUserDetailResponse.SucDetail sucDetail = new DeptUserDetailResponse().new SucDetail();
+        // 成员详情
+        List<DeptUserDetailResponse.SucDetail.User> user = new ArrayList(8);
+        for (DeptUserDetailDTSucResponse.User sourceUser : deptUserDetailDTSucResponse.getUserlist()) {
+            DeptUserDetailResponse.SucDetail.User targetUser = new DeptUserDetailResponse().new SucDetail().new User();
+            BeanUtil.copyProperties(sourceUser, targetUser);
+            user.add(targetUser);
+        }
+        sucDetail.setUserList(user);
+        deptUserDetailResponse.setSucDetail(sucDetail);
+        return deptUserDetailResponse;
+    }
+
+    public static DeptUserDetailResponse to(DeptUserDetailResponse deptUserDetailResponse, BaseDTFailResponse baseDTFailResponse) {
+        DeptUserDetailResponse.FailDetail failDetail = new DeptUserDetailResponse().new FailDetail();
+        failDetail.setErrMsg(baseDTFailResponse.getErrMsg());
+        failDetail.setErrCode(baseDTFailResponse.getErrCode());
+        deptUserDetailResponse.setFailDetail(failDetail);
+        return deptUserDetailResponse;
+    }
+    //-----------------------------------------------------------------------------------------------------------------------部门人员详情
 }

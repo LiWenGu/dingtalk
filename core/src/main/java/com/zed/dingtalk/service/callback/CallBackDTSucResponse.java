@@ -1,6 +1,7 @@
 package com.zed.dingtalk.service.callback;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zed.dingtalk.common.BaseDTFailResponse;
 import lombok.Data;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * @Author liwenguang
  * @Date 2018/11/22 12:09 PM
- * @Description DT 真正返回的 Bean 类，回调地址失败的 Bean： {@link com.zed.dingtalk.common.BaseDingTalkFailResponse}
+ * @Description DT 真正返回的 Bean 类，回调地址失败的 Bean： {@link BaseDTFailResponse}
  */
 @Data
 public class CallBackDTSucResponse {

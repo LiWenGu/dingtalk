@@ -10,7 +10,8 @@ public enum DingTalkEcoEnum {
     CALL_BACK_SELECT("call_back_get", "查询回调接口", "https://oapi.dingtalk.com/call_back/get_call_back", true),
     CALL_BACK_UPDATE("call_back_update", "更新回调接口", "https://oapi.dingtalk.com/call_back/update_call_back", true),
     BPMS_GET("dingtalk.smartwork.bpms.processinstance.get", "获取某个审批详情", "https://eco.taobao.com/router/rest", true),
-    USER_DETAIL_GET("user_detail_get", "获取成员详情", "https://oapi.dingtalk.com/user/get", true);
+    USER_DETAIL_GET("user_detail_get", "获取成员详情", "https://oapi.dingtalk.com/user/get", true),
+    DEPT_USER_DETAIL_GET("dept_user_detail_get", "获取部门成员详情", "https://oapi.dingtalk.com/user/list", true);
 
     private String code;
     private String msg;

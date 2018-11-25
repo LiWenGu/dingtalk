@@ -2,7 +2,6 @@ package com.zed.dingtalk.service;
 
 import com.zed.dingtalk.DingTalkAppTest;
 import com.zed.dingtalk.service.callback.CallBackRegisterRequest;
-import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
 import com.zed.dingtalk.service.callback.CallBackService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +21,6 @@ public class CallBackServiceTest extends DingTalkAppTest {
 
     @Autowired
     private CallBackService callBackService;
-
-    private String accessToken = "cee85031be3739318b50a1f060425e60";
 
     @Test
     public void register() {

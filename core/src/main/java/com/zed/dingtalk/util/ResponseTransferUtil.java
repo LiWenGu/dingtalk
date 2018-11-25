@@ -1,18 +1,19 @@
 package com.zed.dingtalk.util;
 
 import com.alibaba.fastjson.JSON;
-import com.zed.dingtalk.common.BaseDingTalkFailResponse;
-import com.zed.dingtalk.common.BaseResponse;
+import com.zed.dingtalk.common.BaseDTFailResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTFailResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
-import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTFailResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
+import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
+import com.zed.dingtalk.service.department.DeptUserDetailDTSucResponse;
+import com.zed.dingtalk.service.department.DeptUserDetailResponse;
 import com.zed.dingtalk.service.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.user.UserDetailResponse;
 
@@ -29,6 +30,21 @@ public class ResponseTransferUtil {
 
     private interface TransferHandler<R> {
         R transfer();
+    }
+
+    /**
+     * @Author liwenguang
+     * @Date 2018/11/25 9:52 PM
+     * @Description 获取部门成员详情
+     */
+    public static DeptUserDetailResponse to(DeptUserDetailResponse deptUserDetailResponse, String response) {
+        if (!response.startsWith("{\"e")) {
+            DeptUserDetailDTSucResponse deptUserDetailDTSucResponse = JSON.parseObject(response, DeptUserDetailDTSucResponse.class);
+            return switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, deptUserDetailDTSucResponse));
+        } else {
+            BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
+            return switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, baseDTFailResponse));
+        }
     }
 
     /**
@@ -65,8 +81,8 @@ public class ResponseTransferUtil {
             UserDetailDTSucResponse userDetailDTSucResponse = JSON.parseObject(response, UserDetailDTSucResponse.class);
             return switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, userDetailDTSucResponse));
         } else {
-            BaseDingTalkFailResponse baseDingTalkFailResponse = JSON.parseObject(response, BaseDingTalkFailResponse.class);
-            return switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, baseDingTalkFailResponse));
+            BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
+            return switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, baseDTFailResponse));
         }
     }
 
@@ -90,7 +106,7 @@ public class ResponseTransferUtil {
      * @Date 2018/11/25 2:04 AM
      * @Description 回调地址增删改的转换
      */
-    public static CallBackResponse to(CallBackResponse callBackResponse, BaseDingTalkFailResponse response) {
+    public static CallBackResponse to(CallBackResponse callBackResponse, BaseDTFailResponse response) {
         return switchType(() -> BadSmellCodeResponseUtil.to(callBackResponse, response));
     }
     
