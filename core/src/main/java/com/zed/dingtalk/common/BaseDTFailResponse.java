@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description 如果有 sub_code，则使用 | 分割，例如获取审批实例详情时错误时，这时候 errMsg = msg | sub_msg
  */
 @Data
-public class BaseDingTalkFailResponse {
+public class BaseDTFailResponse {
     private String errMsg;
     private String errCode;
 }

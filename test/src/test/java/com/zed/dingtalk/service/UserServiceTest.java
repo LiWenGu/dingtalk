@@ -1,8 +1,8 @@
 package com.zed.dingtalk.service;
 
 import com.zed.dingtalk.DingTalkAppTest;
-import com.zed.dingtalk.service.user.UserService;
 import com.zed.dingtalk.service.user.UserDetailResponse;
+import com.zed.dingtalk.service.user.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,11 +18,7 @@ public class UserServiceTest extends DingTalkAppTest {
 
     @Test
     public void getUserDetail() {
-        UserDetailResponse userDetailResponse = userService.getUserDetail("cee85031be3739318b50a1f060425e60", "manager20902");
-        if (userDetailResponse.isSuc()) {
-
-        } else {
-            System.out.println(userDetailResponse.toString());
-        }
+        UserDetailResponse userDetailResponse = userService.getUserDetail("bee5935db66536c0a73c8f3ea3179b90", "manager2090");
+        System.out.println(userDetailResponse.toString());
     }
 }

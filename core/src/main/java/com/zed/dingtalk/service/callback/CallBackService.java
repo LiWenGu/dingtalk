@@ -1,10 +1,8 @@
 package com.zed.dingtalk.service.callback;
 
-import com.zed.dingtalk.common.BaseDingTalkFailResponse;
-import com.zed.dingtalk.common.BaseResponse;
+import com.zed.dingtalk.common.BaseDTFailResponse;
 import com.zed.dingtalk.type.DingTalkEcoEnum;
 import com.zed.dingtalk.util.BadSmellCodeRequestUtil;
-import com.zed.dingtalk.util.BadSmellCodeResponseUtil;
 import com.zed.dingtalk.util.ResponseTransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +28,8 @@ public class CallBackService {
      * @Description 注册回调地址
      */
     public CallBackResponse register(String accessToken, CallBackRegisterRequest registerRequest) {
-        BaseDingTalkFailResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_REGISTER.getUrl() +
-                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), BaseDingTalkFailResponse.class, accessToken);
+        BaseDTFailResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_REGISTER.getUrl() +
+                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), BaseDTFailResponse.class, accessToken);
         return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 
@@ -41,8 +39,8 @@ public class CallBackService {
      * @Description 删除回调地址
      */
     public CallBackResponse delete(String accessToken) {
-        BaseDingTalkFailResponse response = restTemplate.getForObject(DingTalkEcoEnum.CALL_BACK_DELETE.getUrl() +
-                "?access_token={accessToken}", BaseDingTalkFailResponse.class, accessToken);
+        BaseDTFailResponse response = restTemplate.getForObject(DingTalkEcoEnum.CALL_BACK_DELETE.getUrl() +
+                "?access_token={accessToken}", BaseDTFailResponse.class, accessToken);
         return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 
@@ -52,8 +50,8 @@ public class CallBackService {
      * @Description 更新回调地址
      */
     public CallBackResponse update(String accessToken, CallBackRegisterRequest registerRequest) {
-        BaseDingTalkFailResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_UPDATE.getUrl() +
-                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), BaseDingTalkFailResponse.class, accessToken);
+        BaseDTFailResponse response = restTemplate.postForObject(DingTalkEcoEnum.CALL_BACK_UPDATE.getUrl() +
+                "?access_token={accessToken}", BadSmellCodeRequestUtil.to(registerRequest), BaseDTFailResponse.class, accessToken);
         return ResponseTransferUtil.to(new CallBackResponse(), response);
     }
 

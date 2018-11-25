@@ -1,8 +1,6 @@
 package com.zed.dingtalk.service;
 
 import com.zed.dingtalk.DingTalkAppTest;
-import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
-import com.zed.dingtalk.service.accesstoken.AccessTokenService;
 import com.zed.dingtalk.service.bpms.BpmsRequest;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.bpms.BpmsService;
@@ -24,7 +22,7 @@ public class BpmsServiceTest extends DingTalkAppTest {
     @Test
     public void getDetail() {
         BpmsRequest request = new BpmsRequest();
-        request.setSession("cee85031be3739318b50a1f060425e60");
+        request.setSession(accessToken);
         request.setProcess_instance_id("6713ef32-7d3a-4d6b-ad0c-fb747ce29e3e");
         BpmsResponse bpmsResponse = bpmsService.getDetail(request);
         if (bpmsResponse.isSuc()) {

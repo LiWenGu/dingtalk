@@ -1,7 +1,7 @@
 package com.zed.dingtalk.service.accesstoken;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.zed.dingtalk.common.BaseDingTalkFailResponse;
+import com.zed.dingtalk.common.BaseDTFailResponse;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
  * @Description DT 真正返回的 Bean 类
  */
 @Data
-public class AccessTokenDTResponse extends BaseDingTalkFailResponse {
+public class AccessTokenDTResponse extends BaseDTFailResponse {
 
     @JSONField(name = "expiresIn")
     private Integer expires;
