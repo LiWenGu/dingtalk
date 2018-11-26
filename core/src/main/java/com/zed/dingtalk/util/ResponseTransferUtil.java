@@ -15,8 +15,7 @@ import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
-import com.zed.dingtalk.service.department.DeptUserDetailDTSucResponse;
-import com.zed.dingtalk.service.department.DeptUserDetailResponse;
+import com.zed.dingtalk.service.department.*;
 import com.zed.dingtalk.service.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.user.UserDetailResponse;
 
@@ -87,6 +86,26 @@ public class ResponseTransferUtil {
             BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
             return (UserDetailResponse) switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, baseDTFailResponse));
         }
+    }
+
+    /**
+     * @Author liwenguang
+     * @Date 2018/11/26 11:56 PM
+     * @Description 获取部门的所有父部门
+     */
+    public static DeptParentResponse to(DeptParentResponse deptParentResponse, String response) {
+        DeptParentDTSucResponse deptParentDTSucResponse = JSON.parseObject(response, DeptParentDTSucResponse.class);
+        return switchType(() -> BadSmellCodeResponseUtil.to(deptParentResponse, deptParentDTSucResponse));
+    }
+
+    /**
+     * @Author liwenguang
+     * @Date 2018/11/27 12:39 AM
+     * @Description 获取当前能获取到的所有的部门
+     */
+    public static DeptAllResponse to(DeptAllResponse deptAllResponse, String response) {
+        DeptAllDTResponse deptAllDTResponse = JSON.parseObject(response, DeptAllDTResponse.class);
+        return switchType(() -> BadSmellCodeResponseUtil.to(deptAllResponse, deptAllDTResponse));
     }
 
     /**

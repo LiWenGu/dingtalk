@@ -12,3 +12,5 @@
 5. 接收响应的时候 FastJson 需要将 Bean 的内部类设置为 static，但是使用 JSON.parse() 的时候不需要将转化为的 Bean 内部类设置为 static.
 6. 默认 FastJson 不区分大小写，因此 errmsg -> errMsg
 7. 继承自基础 DingTalkFail 类
+8. 获取部门列表是否要做成一个树结构返回？
+>部门的 key 是 deptId 还是 deptName 更适合场景？

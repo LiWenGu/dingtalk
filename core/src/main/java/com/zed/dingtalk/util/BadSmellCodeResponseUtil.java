@@ -3,6 +3,7 @@ package com.zed.dingtalk.util;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.zed.dingtalk.common.BaseDTFailResponse;
 import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
@@ -17,8 +18,7 @@ import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
-import com.zed.dingtalk.service.department.DeptUserDetailDTSucResponse;
-import com.zed.dingtalk.service.department.DeptUserDetailResponse;
+import com.zed.dingtalk.service.department.*;
 import com.zed.dingtalk.service.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.user.UserDetailResponse;
 
@@ -234,8 +234,66 @@ public class BadSmellCodeResponseUtil {
         attendResponse.setSucDetail(sucDetail);
         return attendResponse;
     }
-    //-----------------------------------------------------------------------------------------------------------------------打卡结果
+    //----------------------------------------------------------------------------------------------------------------------打卡结果
 
+    //----------------------------------------------------------------------------------------------------------------------获取部门的父部门列表
+    public static DeptParentResponse to(DeptParentResponse deptParentResponse, DeptParentDTSucResponse deptParentDTSucResponse) {
+        if (deptParentDTSucResponse.getErrCode().equals("0") && deptParentDTSucResponse.getErrMsg().equals("ok")) {
+            deptParentResponse.setSuc(true);
+            DeptParentResponse.SucDetail sucDetail = new DeptParentResponse().new SucDetail();
+            sucDetail.setDeptIds(deptParentDTSucResponse.getParentIds());
+            deptParentResponse.setSucDetail(sucDetail);
+        } else {
+            DeptParentResponse.FailDetail failDetail = new DeptParentResponse().new FailDetail();
+            failDetail.setErrCode(deptParentDTSucResponse.getErrCode());
+            failDetail.setErrMsg(deptParentDTSucResponse.getErrMsg());
+            deptParentResponse.setFailDetail(failDetail);
+        }
+        return deptParentResponse;
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------获取部门的父部门列表
+    //----------------------------------------------------------------------------------------------------------------------获取当前所授权的所有部门列表
+    public static DeptAllResponse to(DeptAllResponse deptAllResponse, DeptAllDTResponse deptAllDTResponse) {
+        if (deptAllDTResponse.getErrCode().equals("0") && deptAllDTResponse.getErrMsg().equals("ok")) {
+            deptAllResponse.setSuc(true);
+            DeptAllResponse.SucDetail sucDetail = new DeptAllResponse().new SucDetail();
+            Map<String, DeptAllResponse.SucDetail.DeptDetail> deptDetailMap = new HashMap<>(1024);
+            // 设置基本属性
+            for (DeptAllDTResponse.Department sourceDepartment : deptAllDTResponse.getDepartment()) {
+                DeptAllResponse.SucDetail.DeptDetail deptDetail = new DeptAllResponse().new SucDetail().new DeptDetail();
+                String deptId = sourceDepartment.getId();
+                deptDetail.setDeptName(sourceDepartment.getName());
+                deptDetail.setParentDeptId(sourceDepartment.getParentId());
+                deptDetailMap.put(deptId, deptDetail);
+            }
+            // 设置子部门
+            // TODO 这里有子部门的顺序问题
+            for (DeptAllDTResponse.Department sourceDepartment : deptAllDTResponse.getDepartment()) {
+                String deptId = sourceDepartment.getId();
+                DeptAllResponse.SucDetail.DeptDetail deptDetail = deptDetailMap.get(deptId);
+                String parentDeptId = deptDetail.getParentDeptId();
+                if (StrUtil.isNotEmpty(parentDeptId)) {
+                    List<String> children = deptDetailMap.get(parentDeptId).getChildrenDeptId();
+                    if (children == null) {
+                        children = new ArrayList<>(8);
+                    }
+                    children.add(deptId);
+                    deptDetailMap.get(parentDeptId).setChildrenDeptId(children);
+                }
+            }
+            sucDetail.setDeptDetailMap(deptDetailMap);
+            deptAllResponse.setSucDetail(sucDetail);
+        } else {
+            DeptAllResponse.FailDetail failDetail = new DeptAllResponse().new FailDetail();
+            failDetail.setErrCode(deptAllDTResponse.getErrCode());
+            failDetail.setErrMsg(deptAllDTResponse.getErrMsg());
+            deptAllResponse.setFailDetail(failDetail);
+        }
+        return deptAllResponse;
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------获取当前所授权的所有部门列表
     //-----------------------------------------------------------------------------------------------------------------------通用错误转换
     public static BaseResponse to(BaseResponse baseResponse, BaseDTFailResponse baseDTFailResponse) {
         BaseResponse.FailDetail failDetail = new BaseResponse().new FailDetail();

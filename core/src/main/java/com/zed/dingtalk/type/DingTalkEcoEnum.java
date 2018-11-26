@@ -2,7 +2,6 @@ package com.zed.dingtalk.type;
 
 public enum DingTalkEcoEnum {
 
-    GET_BPMS("dingtalk.smartwork.bpms.processinstance.get", "获取单个审批实例详情", "https://eco.taobao.com/router/rest", true),
     ASYNC_SEND("dingtalk.corp.message.corpconversation.asyncsend", "企业会话消息异步发送", "https://eco.taobao.com/router/rest", true),
     ACCESS_TOKEN("dingtalk.corp.message.corpconversation.asyncsend", "获取 access_token", "https://oapi.dingtalk.com/gettoken", false),
     CALL_BACK_REGISTER("call_back_register", "注册回调接口", "https://oapi.dingtalk.com/call_back/register_call_back", true),
@@ -12,7 +11,9 @@ public enum DingTalkEcoEnum {
     BPMS_GET("dingtalk.smartwork.bpms.processinstance.get", "获取某个审批详情", "https://eco.taobao.com/router/rest", true),
     USER_DETAIL_GET("user_detail_get", "获取成员详情", "https://oapi.dingtalk.com/user/get", true),
     DEPT_USER_DETAIL_GET("dept_user_detail_get", "获取部门成员详情", "https://oapi.dingtalk.com/user/list", true),
-    ATTENDS_LIST("attendance_list", "考勤打卡结果开放", "https://oapi.dingtalk.com/attendance/list", true); // ISV无调用权限
+    ATTENDS_LIST("attendance_list", "考勤打卡结果开放", "https://oapi.dingtalk.com/attendance/list", true), // ISV无调用权限
+    DEPTS_LIST_PARENT_BY_DEPT("depts_list_parent_by_dept", "查询部门的所有上级父部门路径", "https://oapi.dingtalk.com/department/list_parent_depts_by_dept", true), // ISV无调用权限
+    DEPTS_LIST("depts_list", "获取部门列表", "https://oapi.dingtalk.com/department/list", true); // ISV无调用权限
 
     private String code;
     private String msg;
