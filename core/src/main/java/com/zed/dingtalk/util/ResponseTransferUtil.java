@@ -2,11 +2,14 @@ package com.zed.dingtalk.util;
 
 import com.alibaba.fastjson.JSON;
 import com.zed.dingtalk.common.BaseDTFailResponse;
+import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTFailResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
+import com.zed.dingtalk.service.attend.AttendDTSucResponse;
+import com.zed.dingtalk.service.attend.AttendResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTFailResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
@@ -24,11 +27,11 @@ import com.zed.dingtalk.service.user.UserDetailResponse;
  */
 public class ResponseTransferUtil {
 
-    private static <R> R switchType(TransferHandler<R> handler) {
+    private static <R extends BaseResponse> R switchType(TransferHandler<R> handler) {
         return handler.transfer();
     }
 
-    private interface TransferHandler<R> {
+    private interface TransferHandler<R extends BaseResponse> {
         R transfer();
     }
 
@@ -43,7 +46,7 @@ public class ResponseTransferUtil {
             return switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, deptUserDetailDTSucResponse));
         } else {
             BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
-            return switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, baseDTFailResponse));
+            return (DeptUserDetailResponse) switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, baseDTFailResponse));
         }
     }
 
@@ -82,7 +85,7 @@ public class ResponseTransferUtil {
             return switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, userDetailDTSucResponse));
         } else {
             BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
-            return switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, baseDTFailResponse));
+            return (UserDetailResponse) switchType(() -> BadSmellCodeResponseUtil.to(userDetailResponse, baseDTFailResponse));
         }
     }
 
@@ -118,4 +121,20 @@ public class ResponseTransferUtil {
     public static CallBackResponse to(CallBackResponse callBackResponse, CallBackDTSucResponse response) {
         return switchType(() -> BadSmellCodeResponseUtil.to(callBackResponse, response));
     }
+
+    /**
+     * @Author liwenguang
+     * @Date 2018/11/26 2:54 PM
+     * @Description 打卡结果的转换
+     */
+    public static AttendResponse to(AttendResponse attendResponse, String response) {
+        if (!response.startsWith("{\"e")) {
+            AttendDTSucResponse attendDTSucResponse = JSON.parseObject(response, AttendDTSucResponse.class);
+            return switchType(() -> BadSmellCodeResponseUtil.to(attendResponse, attendDTSucResponse));
+        } else {
+            BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
+            return (AttendResponse) switchType(() -> BadSmellCodeResponseUtil.to(attendResponse, baseDTFailResponse));
+        }
+    }
+
 }

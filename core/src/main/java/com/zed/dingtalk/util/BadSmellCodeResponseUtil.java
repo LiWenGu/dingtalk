@@ -2,6 +2,7 @@ package com.zed.dingtalk.util;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import com.zed.dingtalk.common.BaseDTFailResponse;
 import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
@@ -9,6 +10,8 @@ import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTFailResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
 import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
+import com.zed.dingtalk.service.attend.AttendDTSucResponse;
+import com.zed.dingtalk.service.attend.AttendResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTFailResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
@@ -38,14 +41,6 @@ public class BadSmellCodeResponseUtil {
         // 部门
         sucDetail.setDeptIds(userDetailDTSucResponse.getDepartment());
         userDetailResponse.setSucDetail(sucDetail);
-        return userDetailResponse;
-    }
-
-    protected static UserDetailResponse to(UserDetailResponse userDetailResponse, BaseDTFailResponse baseDTFailResponse) {
-        BaseResponse.FailDetail failDetail = new BaseResponse().new FailDetail();
-        failDetail.setErrCode(baseDTFailResponse.getErrCode());
-        failDetail.setErrMsg(baseDTFailResponse.getErrMsg());
-        userDetailResponse.setFailDetail(failDetail);
         return userDetailResponse;
     }
     // ----------------------------------------------------------------------------------------------------------------------人员详情
@@ -221,12 +216,34 @@ public class BadSmellCodeResponseUtil {
         return deptUserDetailResponse;
     }
 
-    public static DeptUserDetailResponse to(DeptUserDetailResponse deptUserDetailResponse, BaseDTFailResponse baseDTFailResponse) {
-        DeptUserDetailResponse.FailDetail failDetail = new DeptUserDetailResponse().new FailDetail();
-        failDetail.setErrMsg(baseDTFailResponse.getErrMsg());
-        failDetail.setErrCode(baseDTFailResponse.getErrCode());
-        deptUserDetailResponse.setFailDetail(failDetail);
-        return deptUserDetailResponse;
-    }
     //-----------------------------------------------------------------------------------------------------------------------部门人员详情
+    //-----------------------------------------------------------------------------------------------------------------------打卡结果
+    public static AttendResponse to(AttendResponse attendResponse, AttendDTSucResponse attendDTSucResponse) {
+        attendResponse.setSuc(true);
+        AttendResponse.SucDetail sucDetail = new AttendResponse().new SucDetail();
+        sucDetail.setHasMore(attendDTSucResponse.isHasMore());
+        List<AttendResponse.SucDetail.Record> recordList = new ArrayList(8);
+        for (AttendDTSucResponse.RecordResult sourceRecord : attendDTSucResponse.getRecordResult()) {
+            AttendResponse.SucDetail.Record targetRecord = new AttendResponse().new SucDetail().new Record();
+            BeanUtil.copyProperties(sourceRecord, targetRecord);
+            targetRecord.setWorkDate(DateUtil.date(sourceRecord.getWorkDate()).toDateStr());
+            targetRecord.setCheckDate(DateUtil.date(sourceRecord.getCheckDate()).toString());
+            recordList.add(targetRecord);
+        }
+        sucDetail.setRecordList(recordList);
+        attendResponse.setSucDetail(sucDetail);
+        return attendResponse;
+    }
+    //-----------------------------------------------------------------------------------------------------------------------打卡结果
+
+    //-----------------------------------------------------------------------------------------------------------------------通用错误转换
+    public static BaseResponse to(BaseResponse baseResponse, BaseDTFailResponse baseDTFailResponse) {
+        BaseResponse.FailDetail failDetail = new BaseResponse().new FailDetail();
+        failDetail.setErrCode(baseDTFailResponse.getErrCode());
+        failDetail.setErrMsg(baseDTFailResponse.getErrMsg());
+        baseResponse.setFailDetail(failDetail);
+        return baseResponse;
+    }
+    //-----------------------------------------------------------------------------------------------------------------------通用错误转换
+
 }
