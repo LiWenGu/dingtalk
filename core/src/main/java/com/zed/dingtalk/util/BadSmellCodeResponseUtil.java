@@ -18,9 +18,9 @@ import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
-import com.zed.dingtalk.service.department.*;
-import com.zed.dingtalk.service.user.UserDetailDTSucResponse;
-import com.zed.dingtalk.service.user.UserDetailResponse;
+import com.zed.dingtalk.service.contacts.department.*;
+import com.zed.dingtalk.service.contacts.user.UserDetailDTSucResponse;
+import com.zed.dingtalk.service.contacts.user.UserDetailResponse;
 
 import java.util.*;
 

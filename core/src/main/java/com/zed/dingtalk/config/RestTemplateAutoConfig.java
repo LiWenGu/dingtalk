@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class RestTemplateAutoConfig {
     @ConditionalOnMissingBean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
         RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(factory));
-        restTemplate.setInterceptors(Collections.singletonList(restTemplateInterceptor));
+        //restTemplate.setInterceptors(Collections.singletonList(restTemplateInterceptor));
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 

@@ -1,10 +1,9 @@
 package com.zed.dingtalk.service;
 
 import com.zed.dingtalk.DingTalkAppTest;
-import com.zed.dingtalk.service.department.DeptAllResponse;
-import com.zed.dingtalk.service.department.DeptParentResponse;
-import com.zed.dingtalk.service.department.DeptService;
-import com.zed.dingtalk.service.department.DeptUserDetailResponse;
+import com.zed.dingtalk.service.contacts.department.DeptAllResponse;
+import com.zed.dingtalk.service.contacts.department.DeptParentResponse;
+import com.zed.dingtalk.service.contacts.department.DeptService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,12 +16,6 @@ public class DeptServiceTest extends DingTalkAppTest {
 
     @Autowired
     private DeptService deptService;
-
-    @Test
-    public void getUserDetail() {
-        DeptUserDetailResponse deptUserDetailResponse = deptService.getUserDetail(accessToken, "83118467");
-        System.out.println(deptUserDetailResponse.toString());
-    }
 
     @Test
     public void listPageDeptIds() {
