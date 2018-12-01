@@ -5,8 +5,9 @@ public enum DingTalkEcoEnum {
     // 身份验证-应用免登
     ACCESS_TOKEN("dingtalk.corp.message.corpconversation.asyncsend", "企业应用免登获取access_token", "https://oapi.dingtalk.com/gettoken", false),
 
-    // 消息通知-异步通知
-    ASYNC_SEND("dingtalk.corp.message.corpconversation.asyncsend", "企业会话消息异步发送", "https://eco.taobao.com/router/rest", true),
+    // 消息通知-工作通知消息
+    SEND_ASYNC_SEND("dingtalk.corp.message.corpconversation.asyncsend", "企业会话消息异步发送", "https://eco.taobao.com/router/rest", true),
+    SEND_ASYNC_NOFITY_MSG("SEND_ASYNC_NOFITY_MSG", "发送工作通知消息", "https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2", true),
 
     // 回调接口-回调接口
     CALL_BACK_REGISTER("call_back_register", "注册回调接口", "https://oapi.dingtalk.com/call_back/register_call_back", true),

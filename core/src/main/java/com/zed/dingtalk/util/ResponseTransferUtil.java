@@ -5,9 +5,6 @@ import com.zed.dingtalk.common.BaseDTFailResponse;
 import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendDTFailResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
 import com.zed.dingtalk.service.attend.AttendDTSucResponse;
 import com.zed.dingtalk.service.attend.AttendResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTFailResponse;
@@ -20,6 +17,7 @@ import com.zed.dingtalk.service.contact.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailResponse;
+import com.zed.dingtalk.service.msgnotify.sendnotify.*;
 
 /**
  * @Author liwenguang
@@ -137,13 +135,23 @@ public class ResponseTransferUtil {
 
     /**
      * @Author liwenguang
+     * @Date 2018/12/1 5:27 PM
+     * @Description 异步通知的转换
+     */
+    public static SendWorkResponse to(SendWorkResponse sendWorkResponse, String response) {
+        SendWorkDTSucResponse sendWorkDTSucResponse = JSON.parseObject(response, SendWorkDTSucResponse.class);
+        return switchType(() -> BadSmellCodeResponseUtil.to(sendWorkResponse, sendWorkDTSucResponse));
+    }
+
+    /**
+     * @Author liwenguang
      * @Date 2018/11/25 2:04 AM
      * @Description 回调地址增删改的转换
      */
     public static CallBackResponse to(CallBackResponse callBackResponse, BaseDTFailResponse response) {
         return switchType(() -> BadSmellCodeResponseUtil.to(callBackResponse, response));
     }
-    
+
     /**
      * @Author liwenguang
      * @Date 2018/11/25 1:59 AM

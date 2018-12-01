@@ -1,7 +1,9 @@
 package com.zed.dingtalk;
 
 import com.zed.dingtalk.service.accesstoken.AccessTokenService;
-import com.zed.dingtalk.service.asyncsend.CorpMessageService;
+import com.zed.dingtalk.service.contact.department.DeptService;
+import com.zed.dingtalk.service.contact.user.UserService;
+import com.zed.dingtalk.service.msgnotify.sendnotify.SendWorkNotifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,7 +34,19 @@ public class DingTalkServiceAutoConfigure {
 
     @Bean
     @ConditionalOnMissingBean
-    CorpMessageService corpMessageService (){
-        return new CorpMessageService(properties.getAgentId());
+    SendWorkNotifyService corpMessageService() {
+        return new SendWorkNotifyService(properties.getAgentId());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    DeptService deptService() {
+        return new DeptService();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    UserService userService() {
+        return new UserService();
     }
 }

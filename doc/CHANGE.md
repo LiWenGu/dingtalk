@@ -19,3 +19,4 @@
 10. 根据 `https://open-doc.dingtalk.com/microapp/serverap
 i2/pgoxpy` 进行接口分类
 >但是发现这个网站的接口并不全，例如没有获取审批详情和发送异步通知的接口。
+11. 发送工作通知的 msgtype 做成枚举，content 与 type 使用 JSON 转换

@@ -8,9 +8,6 @@ import com.zed.dingtalk.common.BaseDTFailResponse;
 import com.zed.dingtalk.common.BaseResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenDTResponse;
 import com.zed.dingtalk.service.accesstoken.AccessTokenResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendDTFailResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendDTSucResponse;
-import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
 import com.zed.dingtalk.service.attend.AttendDTSucResponse;
 import com.zed.dingtalk.service.attend.AttendResponse;
 import com.zed.dingtalk.service.bpms.BpmsDTFailResponse;
@@ -23,6 +20,7 @@ import com.zed.dingtalk.service.contact.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailResponse;
+import com.zed.dingtalk.service.msgnotify.sendnotify.*;
 
 import java.util.*;
 
@@ -74,6 +72,24 @@ public class BadSmellCodeResponseUtil {
         return asyncSendResponse;
     }
     // ----------------------------------------------------------------------------------------------------------------------异步通知
+    // ----------------------------------------------------------------------------------------------------------------------异步通知新
+    protected static SendWorkResponse to(SendWorkResponse sendWorkResponse, SendWorkDTSucResponse sendWorkDTSucResponse) {
+        // 成功
+        if (sendWorkDTSucResponse.getErrCode().equals(0)) {
+            sendWorkResponse.setSuc(true);
+            SendWorkResponse.SucDatail sucDatail = new SendWorkResponse().new SucDatail();
+            sucDatail.setTaskId(sendWorkDTSucResponse.getTaskId());
+            sucDatail.setRequestId(sendWorkDTSucResponse.getRequestId());
+            sendWorkResponse.setSucDetail(sucDatail);
+        } else {
+            SendWorkResponse.FailDetail failDetail = new SendWorkResponse().new FailDetail();
+            failDetail.setErrCode(sendWorkDTSucResponse.getErrCode());
+            failDetail.setErrMsg(sendWorkDTSucResponse.getErrMsg());
+            sendWorkResponse.setFailDetail(failDetail);
+        }
+        return sendWorkResponse;
+    }
+    // ----------------------------------------------------------------------------------------------------------------------异步通知新
 
     // ----------------------------------------------------------------------------------------------------------------------access_token
     protected static AccessTokenResponse to(AccessTokenResponse accessTokenResponse, AccessTokenDTResponse accessTokenDTResponse) {

@@ -1,4 +1,4 @@
-package com.zed.dingtalk.service.asyncsend;
+package com.zed.dingtalk.service.msgnotify.sendnotify;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

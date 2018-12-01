@@ -1,4 +1,4 @@
-package com.zed.dingtalk.service.asyncsend;
+package com.zed.dingtalk.service.msgnotify.sendnotify;
 
 import lombok.Data;
 

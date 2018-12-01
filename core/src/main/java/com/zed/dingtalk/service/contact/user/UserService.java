@@ -3,7 +3,6 @@ package com.zed.dingtalk.service.contact.user;
 import com.zed.dingtalk.type.DingTalkEcoEnum;
 import com.zed.dingtalk.util.ResponseTransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
  * @Date 2018/11/25 12:57 AM
  * @Description 用户管理
  */
-@Service
 public class UserService {
 
     @Autowired

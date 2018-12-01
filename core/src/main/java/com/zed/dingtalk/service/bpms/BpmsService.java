@@ -1,9 +1,6 @@
 package com.zed.dingtalk.service.bpms;
 
-import com.zed.dingtalk.service.asyncsend.AsyncSendRequest;
-import com.zed.dingtalk.service.asyncsend.AsyncSendResponse;
 import com.zed.dingtalk.type.DingTalkEcoEnum;
-import com.zed.dingtalk.util.BadSmellCodeResponseUtil;
 import com.zed.dingtalk.util.BeanUtils;
 import com.zed.dingtalk.util.ResponseTransferUtil;
 import org.springframework.beans.factory.annotation.Autowired;
