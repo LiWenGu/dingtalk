@@ -32,29 +32,6 @@ public class SendWorkNotifyService {
      *
      * @param request
      * @return
-     * @deprecated 可以请求成功，但是在钉钉官方文档中没有写明，因此建议使用官方文档的：{@link SendWorkNotifyService#asyncSend(String, SendWorkAsyncSendRequest) }
-     */
-    public AsyncSendResponse asyncSend(AsyncSendRequest request) {
-        AsyncSendResponse resultResponse = new AsyncSendResponse();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        request.setAgent_id(agentId);
-        request.setMethod(DingTalkEcoEnum.SEND_ASYNC_SEND.getCode());
-        request.setV("2.0");
-        request.setFormat("json");
-        request.setSign_method("hmac-sha256");
-        params.putAll(BeanUtils.BeanToMultiValueMap(request));
-        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity(params, headers);
-        String response = restTemplate.postForObject(DingTalkEcoEnum.SEND_ASYNC_SEND.getUrl(), httpEntity, String.class);
-        return ResponseTransferUtil.to(resultResponse, response);
-    }
-
-    /**
-     * 钉钉异步通知
-     *
-     * @param request
-     * @return
      */
     public SendWorkResponse asyncSend(String accessToken, SendWorkAsyncSendRequest request) {
         HttpHeaders headers = new HttpHeaders();

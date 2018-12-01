@@ -20,7 +20,8 @@ import com.zed.dingtalk.service.contact.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailResponse;
-import com.zed.dingtalk.service.msgnotify.sendnotify.*;
+import com.zed.dingtalk.service.msgnotify.sendnotify.SendWorkDTSucResponse;
+import com.zed.dingtalk.service.msgnotify.sendnotify.SendWorkResponse;
 
 import java.util.*;
 
@@ -44,34 +45,6 @@ public class BadSmellCodeResponseUtil {
         return userDetailResponse;
     }
     // ----------------------------------------------------------------------------------------------------------------------人员详情
-
-    // ----------------------------------------------------------------------------------------------------------------------异步通知
-    protected static AsyncSendResponse to(AsyncSendResponse asyncSendResponse, AsyncSendDTSucResponse badSmellCodeResponse) {
-        asyncSendResponse.setSuc(badSmellCodeResponse.getResponse().getResult().isSuccess());
-        asyncSendResponse.setRequestId(badSmellCodeResponse.getResponse().getRequestId());
-        if (asyncSendResponse.isSuc()) {
-            AsyncSendResponse.SucDetail sucDetail = new AsyncSendResponse().new SucDetail();
-            sucDetail.setTaskId(badSmellCodeResponse.getResponse().getResult().getTaskId());
-            asyncSendResponse.setSucDetail(sucDetail);
-        } else {
-            AsyncSendResponse.FailDetail errDetail = new AsyncSendResponse().new FailDetail();
-            errDetail.setErrCode(badSmellCodeResponse.getResponse().getResult().getErrCode());
-            errDetail.setErrMsg(badSmellCodeResponse.getResponse().getResult().getErrMsg());
-            asyncSendResponse.setFailDetail(errDetail);
-        }
-        return asyncSendResponse;
-    }
-
-    protected static AsyncSendResponse to(AsyncSendResponse asyncSendResponse, AsyncSendDTFailResponse badSmellCodeBean) {
-        asyncSendResponse.setSuc(false);
-        asyncSendResponse.setRequestId(badSmellCodeBean.getErrorResponse().getRequestId());
-        AsyncSendResponse.FailDetail errDetail = new AsyncSendResponse().new FailDetail();
-        errDetail.setErrCode(badSmellCodeBean.getErrorResponse().getCode() + "|" + badSmellCodeBean.getErrorResponse().getSubCode());
-        errDetail.setErrMsg(badSmellCodeBean.getErrorResponse().getMsg() + "|" + badSmellCodeBean.getErrorResponse().getSubMsg());
-        asyncSendResponse.setFailDetail(errDetail);
-        return asyncSendResponse;
-    }
-    // ----------------------------------------------------------------------------------------------------------------------异步通知
     // ----------------------------------------------------------------------------------------------------------------------异步通知新
     protected static SendWorkResponse to(SendWorkResponse sendWorkResponse, SendWorkDTSucResponse sendWorkDTSucResponse) {
         // 成功

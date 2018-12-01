@@ -17,7 +17,8 @@ import com.zed.dingtalk.service.contact.user.UserDetailDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptDTSucResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
 import com.zed.dingtalk.service.contact.user.UserDetailResponse;
-import com.zed.dingtalk.service.msgnotify.sendnotify.*;
+import com.zed.dingtalk.service.msgnotify.sendnotify.SendWorkDTSucResponse;
+import com.zed.dingtalk.service.msgnotify.sendnotify.SendWorkResponse;
 
 /**
  * @Author liwenguang
@@ -116,21 +117,6 @@ public class ResponseTransferUtil {
     public static DeptAllResponse to(DeptAllResponse deptAllResponse, String response) {
         DeptAllDTResponse deptAllDTResponse = JSON.parseObject(response, DeptAllDTResponse.class);
         return switchType(() -> BadSmellCodeResponseUtil.to(deptAllResponse, deptAllDTResponse));
-    }
-
-    /**
-     * @Author liwenguang
-     * @Date 2018/11/25 1:50 AM
-     * @Description 异步通知的转换
-     */
-    public static AsyncSendResponse to(AsyncSendResponse asyncSendResponse, String response) {
-        if (!response.startsWith("{\"e")) {
-            AsyncSendDTSucResponse asyncSendDTSucResponse = JSON.parseObject(response, AsyncSendDTSucResponse.class);
-            return switchType(() -> BadSmellCodeResponseUtil.to(asyncSendResponse, asyncSendDTSucResponse));
-        } else {
-            AsyncSendDTFailResponse asyncSendDTFailResponse = JSON.parseObject(response, AsyncSendDTFailResponse.class);
-            return switchType(() -> BadSmellCodeResponseUtil.to(asyncSendResponse, asyncSendDTFailResponse));
-        }
     }
 
     /**
