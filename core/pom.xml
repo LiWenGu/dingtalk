@@ -10,7 +10,7 @@
     <description>钉钉服务</description>
 
     <parent>
-        <groupId>com.liwenguang</groupId>
+        <groupId>io.github.liwengu</groupId>
         <artifactId>dingtalk</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

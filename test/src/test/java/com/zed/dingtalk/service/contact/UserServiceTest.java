@@ -1,10 +1,10 @@
-package com.zed.dingtalk.service;
+package com.zed.dingtalk.service.contact;
 
 import com.zed.dingtalk.DingTalkAppTest;
-import com.zed.dingtalk.service.contacts.department.DeptUserDetailResponse;
-import com.zed.dingtalk.service.contacts.user.UserDeptDetailRequest;
-import com.zed.dingtalk.service.contacts.user.UserDetailResponse;
-import com.zed.dingtalk.service.contacts.user.UserService;
+import com.zed.dingtalk.service.contact.user.UserDetailDeptRequest;
+import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailResponse;
+import com.zed.dingtalk.service.contact.user.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,11 +26,11 @@ public class UserServiceTest extends DingTalkAppTest {
 
     @Test
     public void getUserDeptIdDetail() {
-        UserDeptDetailRequest request = new UserDeptDetailRequest();
+        UserDetailDeptRequest request = new UserDetailDeptRequest();
         request.setOffset(0);
         request.setSize(10);
         request.setDeptId("83118467");
-        DeptUserDetailResponse deptUserDetailResponse = userService.getUserDeptIdDetail(accessToken, request);
+        UserDetailDeptResponse deptUserDetailResponse = userService.getUserDeptIdDetail(accessToken, request);
         System.out.println(deptUserDetailResponse.toString());
     }
 }

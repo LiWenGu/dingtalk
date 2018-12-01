@@ -18,9 +18,11 @@ import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
-import com.zed.dingtalk.service.contacts.department.*;
-import com.zed.dingtalk.service.contacts.user.UserDetailDTSucResponse;
-import com.zed.dingtalk.service.contacts.user.UserDetailResponse;
+import com.zed.dingtalk.service.contact.department.*;
+import com.zed.dingtalk.service.contact.user.UserDetailDTSucResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailDeptDTSucResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailResponse;
 
 import java.util.*;
 
@@ -201,19 +203,19 @@ public class BadSmellCodeResponseUtil {
     //-----------------------------------------------------------------------------------------------------------------------审批详情
 
     //-----------------------------------------------------------------------------------------------------------------------部门人员详情
-    public static DeptUserDetailResponse to(DeptUserDetailResponse deptUserDetailResponse, DeptUserDetailDTSucResponse deptUserDetailDTSucResponse) {
-        deptUserDetailResponse.setSuc(true);
-        DeptUserDetailResponse.SucDetail sucDetail = new DeptUserDetailResponse().new SucDetail();
+    public static UserDetailDeptResponse to(UserDetailDeptResponse userDetailDeptResponse, UserDetailDeptDTSucResponse userDetailDeptDTSucResponse) {
+        userDetailDeptResponse.setSuc(true);
+        UserDetailDeptResponse.SucDetail sucDetail = new UserDetailDeptResponse().new SucDetail();
         // 成员详情
-        List<DeptUserDetailResponse.SucDetail.User> user = new ArrayList(8);
-        for (DeptUserDetailDTSucResponse.User sourceUser : deptUserDetailDTSucResponse.getUserlist()) {
-            DeptUserDetailResponse.SucDetail.User targetUser = new DeptUserDetailResponse().new SucDetail().new User();
+        List<UserDetailDeptResponse.SucDetail.User> user = new ArrayList(8);
+        for (UserDetailDeptDTSucResponse.User sourceUser : userDetailDeptDTSucResponse.getUserlist()) {
+            UserDetailDeptResponse.SucDetail.User targetUser = new UserDetailDeptResponse().new SucDetail().new User();
             BeanUtil.copyProperties(sourceUser, targetUser);
             user.add(targetUser);
         }
         sucDetail.setUserList(user);
-        deptUserDetailResponse.setSucDetail(sucDetail);
-        return deptUserDetailResponse;
+        userDetailDeptResponse.setSucDetail(sucDetail);
+        return userDetailDeptResponse;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------部门人员详情
@@ -251,8 +253,24 @@ public class BadSmellCodeResponseUtil {
         }
         return deptParentResponse;
     }
-
     //----------------------------------------------------------------------------------------------------------------------获取部门的父部门列表
+    //----------------------------------------------------------------------------------------------------------------------获取用户的父部门列表
+    public static DeptParentResponse to(DeptParentResponse deptParentResponse, DeptParent2DTSucResponse deptParent2DTSucResponse) {
+        if (deptParent2DTSucResponse.getErrCode().equals("0") && deptParent2DTSucResponse.getErrMsg().equals("ok")) {
+            deptParentResponse.setSuc(true);
+            DeptParentResponse.SucDetail sucDetail = new DeptParentResponse().new SucDetail();
+            sucDetail.setDeptIds(deptParent2DTSucResponse.getParentIds());
+            deptParentResponse.setSucDetail(sucDetail);
+        } else {
+            DeptParentResponse.FailDetail failDetail = new DeptParentResponse().new FailDetail();
+            failDetail.setErrCode(deptParent2DTSucResponse.getErrCode());
+            failDetail.setErrMsg(deptParent2DTSucResponse.getErrMsg());
+            deptParentResponse.setFailDetail(failDetail);
+        }
+        return deptParentResponse;
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------获取用户的父部门列表
     //----------------------------------------------------------------------------------------------------------------------获取当前所授权的所有部门列表
     public static DeptAllResponse to(DeptAllResponse deptAllResponse, DeptAllDTResponse deptAllDTResponse) {
         if (deptAllDTResponse.getErrCode().equals("0") && deptAllDTResponse.getErrMsg().equals("ok")) {

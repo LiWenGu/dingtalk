@@ -10,14 +10,14 @@
     <description>测试类</description>
 
     <parent>
-        <groupId>com.liwenguang</groupId>
+        <groupId>io.github.liwengu</groupId>
         <artifactId>dingtalk</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>com.liwenguang</groupId>
+            <groupId>io.github.liwengu</groupId>
             <artifactId>spring-boot-dingtalk-starter</artifactId>
             <version>${spring.dingtalk.version}</version>
         </dependency>

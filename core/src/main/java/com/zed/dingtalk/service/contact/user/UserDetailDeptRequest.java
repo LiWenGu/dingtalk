@@ -1,4 +1,4 @@
-package com.zed.dingtalk.service.contacts.user;
+package com.zed.dingtalk.service.contact.user;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description 获取部门用户详情
  */
 @Data
-public class UserDeptDetailRequest {
+public class UserDetailDeptRequest {
 
     private int offset;
     private int size;

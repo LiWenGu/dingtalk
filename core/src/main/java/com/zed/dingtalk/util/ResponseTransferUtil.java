@@ -15,9 +15,11 @@ import com.zed.dingtalk.service.bpms.BpmsDTSucResponse;
 import com.zed.dingtalk.service.bpms.BpmsResponse;
 import com.zed.dingtalk.service.callback.CallBackDTSucResponse;
 import com.zed.dingtalk.service.callback.CallBackResponse;
-import com.zed.dingtalk.service.contacts.department.*;
-import com.zed.dingtalk.service.contacts.user.UserDetailDTSucResponse;
-import com.zed.dingtalk.service.contacts.user.UserDetailResponse;
+import com.zed.dingtalk.service.contact.department.*;
+import com.zed.dingtalk.service.contact.user.UserDetailDTSucResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailDeptDTSucResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailDeptResponse;
+import com.zed.dingtalk.service.contact.user.UserDetailResponse;
 
 /**
  * @Author liwenguang
@@ -39,13 +41,13 @@ public class ResponseTransferUtil {
      * @Date 2018/11/25 9:52 PM
      * @Description 获取部门成员详情
      */
-    public static DeptUserDetailResponse to(DeptUserDetailResponse deptUserDetailResponse, String response) {
+    public static UserDetailDeptResponse to(UserDetailDeptResponse userDetailDeptResponse, String response) {
         if (!response.startsWith("{\"e")) {
-            DeptUserDetailDTSucResponse deptUserDetailDTSucResponse = JSON.parseObject(response, DeptUserDetailDTSucResponse.class);
-            return switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, deptUserDetailDTSucResponse));
+            UserDetailDeptDTSucResponse userDetailDeptDTSucResponse = JSON.parseObject(response, UserDetailDeptDTSucResponse.class);
+            return switchType(() -> BadSmellCodeResponseUtil.to(userDetailDeptResponse, userDetailDeptDTSucResponse));
         } else {
             BaseDTFailResponse baseDTFailResponse = JSON.parseObject(response, BaseDTFailResponse.class);
-            return (DeptUserDetailResponse) switchType(() -> BadSmellCodeResponseUtil.to(deptUserDetailResponse, baseDTFailResponse));
+            return (UserDetailDeptResponse) switchType(() -> BadSmellCodeResponseUtil.to(userDetailDeptResponse, baseDTFailResponse));
         }
     }
 
@@ -95,6 +97,16 @@ public class ResponseTransferUtil {
      */
     public static DeptParentResponse to(DeptParentResponse deptParentResponse, String response) {
         DeptParentDTSucResponse deptParentDTSucResponse = JSON.parseObject(response, DeptParentDTSucResponse.class);
+        return switchType(() -> BadSmellCodeResponseUtil.to(deptParentResponse, deptParentDTSucResponse));
+    }
+
+    /**
+     * @Author liwenguang
+     * @Date 2018/11/26 11:56 PM
+     * @Description 获取用户的所有父部门
+     */
+    public static DeptParentResponse to2(DeptParentResponse deptParentResponse, String response) {
+        DeptParent2DTSucResponse deptParentDTSucResponse = JSON.parseObject(response, DeptParent2DTSucResponse.class);
         return switchType(() -> BadSmellCodeResponseUtil.to(deptParentResponse, deptParentDTSucResponse));
     }
 

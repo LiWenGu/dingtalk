@@ -1,9 +1,9 @@
-package com.zed.dingtalk.service;
+package com.zed.dingtalk.service.contact;
 
 import com.zed.dingtalk.DingTalkAppTest;
-import com.zed.dingtalk.service.contacts.department.DeptAllResponse;
-import com.zed.dingtalk.service.contacts.department.DeptParentResponse;
-import com.zed.dingtalk.service.contacts.department.DeptService;
+import com.zed.dingtalk.service.contact.department.DeptAllResponse;
+import com.zed.dingtalk.service.contact.department.DeptParentResponse;
+import com.zed.dingtalk.service.contact.department.DeptService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +19,7 @@ public class DeptServiceTest extends DingTalkAppTest {
 
     @Test
     public void listPageDeptIds() {
-        DeptParentResponse deptParentResponse = deptService.listPageDeptIds(accessToken, "83118467");
+        DeptParentResponse deptParentResponse = deptService.listParentDeptsByDeptId(accessToken, "83118467");
         System.out.println(deptParentResponse.toString());
     }
 
@@ -27,5 +27,11 @@ public class DeptServiceTest extends DingTalkAppTest {
     public void listDeptIds() {
         DeptAllResponse deptAllResponse = deptService.listDeptIds(accessToken);
         System.out.println(deptAllResponse.toString());
+    }
+
+    @Test
+    public void listParentDeptsByUserId() {
+        DeptParentResponse deptParentResponse = deptService.listParentDeptsByUserId(accessToken, "manager2090");
+        System.out.println(deptParentResponse.toString());
     }
 }

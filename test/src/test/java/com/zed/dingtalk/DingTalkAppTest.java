@@ -9,5 +9,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @ComponentScan("com.zed.dingtalk")
 public class DingTalkAppTest {
-    protected String accessToken = "49c32a9ca3f33d40811bec3bbae1a94b";
+    protected String accessToken = "dcdc151a3f05366d95749859729b3c01";
 }
