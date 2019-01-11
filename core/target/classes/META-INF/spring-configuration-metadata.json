@@ -2,26 +2,26 @@
   "hints": [],
   "groups": [
     {
-      "sourceType": "com.zed.dingtalk.DingTalkServiceProperties",
+      "sourceType": "io.github.liwengu.DingTalkServiceProperties",
       "name": "dingtalk",
-      "type": "com.zed.dingtalk.DingTalkServiceProperties"
+      "type": "io.github.liwengu.DingTalkServiceProperties"
     }
   ],
   "properties": [
     {
-      "sourceType": "com.zed.dingtalk.DingTalkServiceProperties",
+      "sourceType": "io.github.liwengu.DingTalkServiceProperties",
       "name": "dingtalk.agent-id",
       "description": "应用ID",
       "type": "java.lang.String"
     },
     {
-      "sourceType": "com.zed.dingtalk.DingTalkServiceProperties",
+      "sourceType": "io.github.liwengu.DingTalkServiceProperties",
       "name": "dingtalk.corp-id",
       "description": "企业 ID",
       "type": "java.lang.String"
     },
     {
-      "sourceType": "com.zed.dingtalk.DingTalkServiceProperties",
+      "sourceType": "io.github.liwengu.DingTalkServiceProperties",
       "name": "dingtalk.corp-secret",
       "description": "企业秘钥",
       "type": "java.lang.String"

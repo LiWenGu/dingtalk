@@ -1,0 +1,18 @@
+package io.github.liwengu.service.contact.department;
+
+import io.github.liwengu.common.BaseDTFailResponse;
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.List;
+
+/**
+ * @Author liwenguang
+ * @Date 2018/11/25 9:48 PM
+ * @Description 部门成员详情
+ */
+@ToString(callSuper = true)
+@Data
+public class DeptParentDTSucResponse extends BaseDTFailResponse {
+    private List<String> parentIds;
+}
